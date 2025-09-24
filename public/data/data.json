@@ -1,0 +1,22 @@
+{
+  "kpis": {
+    "overallPortfolioPVI": 68,
+    "projectsAtRisk": 15,
+    "predictedDelays": 22
+  },
+  "pviTrend": [
+    { "name": "Jan", "pvi": 45 },
+    { "name": "Feb", "pvi": 52 },
+    { "name": "Mar", "pvi": 50 },
+    { "name": "Apr", "pvi": 65 },
+    { "name": "May", "pvi": 75 },
+    { "name": "Jun", "pvi": 68 }
+  ],
+  "projects": [
+    { "id": "P-102", "name": "Northern Line Extension", "pviScore": 82, "riskLevel": "High" },
+    { "id": "P-205", "name": "Coastal Substation", "pviScore": 35, "riskLevel": "Low" },
+    { "id": "P-314", "name": "Solar Farm Grid", "pviScore": 65, "riskLevel": "Medium" },
+    { "id": "P-119", "name": "Urban Cable Upgrade", "pviScore": 71, "riskLevel": "High" },
+    { "id": "P-401", "name": "Hydro Dam Maintenance", "pviScore": 21, "riskLevel": "Low" }
+  ]
+}

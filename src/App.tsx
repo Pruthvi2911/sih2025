@@ -29,43 +29,49 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          {/* Auth Routes (standalone, no sidebar/header) */}
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
+  {/* Auth Routes (standalone, no sidebar/header) */}
+  <Route path="/" element={<Login />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/logout" element={<Logout />} />
 
-          {/* Main App Routes (with sidebar/header) */}
-          <Route
-            path="/*"
-            element={
-              <div className="flex h-screen w-full bg-green-700">
-                <Sidebar />
-                <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
-                  <Header />
-                  <main className="flex-1 overflow-auto p-6">
-                    <Routes>
+  {/* Main App Routes (with sidebar/header) */}
+  <Route
+    path="/*"
+    element={
+      <div className="flex h-screen w-full bg-green-700">
+        <Sidebar />
+        <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
+          <Header />
+          <main className="flex-1 overflow-auto p-6">
+            <Routes>
+              {/* Projects */}
+              <Route path="projects" element={<Projects />} />
+              <Route path="projects/:type" element={<ProjectsList />} />
 
-                      <Route path="/projects/:type" element={<ProjectsList />} />
+              {/* Analytics */}
+              <Route path="analytics" element={<AnalyticsList />} />
+              <Route path="analytics/:projectId" element={<Analytics />} />
 
-                      <Route path="/analytics" element={<AnalyticsList />} />
-<Route path="/analytics/:projectId" element={<Analytics />} />
-                      <Route path="/ai-forecast" element={<AIForecastList />} />
-<Route path="/ai-forecast/:projectId" element={<AIForecast />} />
-                      <Route path="dashboard" element={<Dashboard />} />
-                      <Route path="new-project" element={<NewProject />} />
-                      <Route path="projects" element={<Projects />} />
-                      <Route path="ai-forecast/:projectId" element={<AIForecast />} />
-                      <Route path="analytics" element={<Analytics />} />
-                      <Route path="team" element={<Team />} />
-                      <Route path="settings" element={<Settings />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
-                  </main>
-                </div>
-              </div>
-            }
-          />
-        </Routes>
+              {/* AI Forecast */}
+              <Route path="ai-forecast" element={<AIForecastList />} />
+              <Route path="ai-forecast/:projectId" element={<AIForecast />} />
+
+              {/* Other pages */}
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="new-project" element={<NewProject />} />
+              <Route path="team" element={<Team />} />
+              <Route path="settings" element={<Settings />} />
+
+              {/* Fallback */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+        </div>
+      </div>
+    }
+  />
+</Routes>
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
