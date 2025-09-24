@@ -5,8 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Sidebar } from "@/components/Sidebar";
 import { Header } from "@/components/Header";
-import { AuthProvider } from "@/hooks/AuthContext"; // Import AuthProvider
-import ProtectedRoute from "@/components/ProtectedRoute"; // Import ProtectedRoute
 
 import Dashboard from "./pages/Dashboard";
 import NewProject from "./pages/NewProject";
@@ -17,28 +15,12 @@ import Analytics from "./pages/Analytics";
 import Team from "./pages/Team";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Projects from "./pages/Projects";
+import AIForecastList from "./pages/AIForecastList";
+import AnalyticsList from "./pages/AnalyticsList";
+import ProjectsList from "./pages/ProjectsList";
 
 const queryClient = new QueryClient();
-
-const MainLayout = () => (
-  <div className="flex h-screen w-full">
-    <Sidebar />
-    <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
-      <Header />
-      <main className="flex-1 overflow-auto p-6">
-        <Routes>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="new-project" element={<NewProject />} />
-          <Route path="ai-forecast" element={<AIForecast />} />
-          <Route path="analytics" element={<Analytics />} />
-          <Route path="team" element={<Team />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-    </div>
-  </div>
-);
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -46,24 +28,42 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            {/* Auth Routes (standalone) */}
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
+        <Routes>
+          {/* Auth Routes (standalone, no sidebar/header) */}
+          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
 
-            {/* Main App Routes (protected) */}
-            <Route
-              path="/*"
-              element={
-                <ProtectedRoute>
-                  <MainLayout />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </AuthProvider>
+          {/* Main App Routes (with sidebar/header) */}
+          <Route
+            path="/*"
+            element={
+              <div className="flex h-screen w-full bg-green-700">
+                <Sidebar />
+                <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
+                  <Header />
+                  <main className="flex-1 overflow-auto p-6">
+                    <Routes>
+                      <Route path="/projects/:type" element={<ProjectsList />} />
+                      <Route path="/analytics" element={<AnalyticsList />} />
+                      <Route path="/analytics/:projectId" element={<Analytics />} />
+                      <Route path="/ai-forecast" element={<AIForecastList />} />
+                      <Route path="/ai-forecast/:projectId" element={<AIForecast />} />
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route path="new-project" element={<NewProject />} />
+                      <Route path="projects" element={<Projects />} />
+                      <Route path="ai-forecast/:projectId" element={<AIForecast />} />
+                      <Route path="analytics" element={<Analytics />} />
+                      <Route path="team" element={<Team />} />
+                      <Route path="settings" element={<Settings />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </main>
+                </div>
+              </div>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
